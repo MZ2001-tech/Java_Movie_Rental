@@ -77,6 +77,7 @@ abstract class Movie implements Rentable{
         if(isRented){
             isRented = false;    // Update rental status
             System.out.println(title+ " has been return total fee is: RM "+ calculateFee());
+            daysRented = 0;
         }else{
             throw new RentalException(title+" was not rented."); // Exception for invalid state
         }
@@ -100,7 +101,7 @@ abstract class Movie implements Rentable{
      * Used to test late fee logic.
      */
     public void addDays(int days){
-        this.daysRented += days; // Increment rental days
+        this.daysRented = days; // Increment rental days
     }
 }
 
@@ -329,7 +330,13 @@ public class MovieRentalSystem{
                     }
 
                     Movie movieToReturn = rentedMovies.get(returnIndex); // Get movie object to return
-                    movieToReturn.addDays(4); // Simulate 4 days rental for late fee
+                    //ask user to input number of days
+                    System.out.println("Enter the Number of days: ");
+                    int dayskept = sc.nextInt();
+                    sc.nextLine();
+                    movieToReturn.addDays(dayskept);
+
+                    //movieToReturn.addDays(daysKept); // Simulate 4 days rental for late fee
 
                     try{
                         // Try to return movie (may throw RentalException)
